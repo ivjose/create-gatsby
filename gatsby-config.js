@@ -1,3 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
@@ -19,13 +24,26 @@ module.exports = {
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-eslint',
     {
-      resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
-      // options: {
-      //   devMode: true,
-      //   analyzerMode: 'server',
-      //   analyzerPort: 3001,
-      //   defaultSizes: 'gzip',
-      // },
+      resolve: '@prismicio/gatsby-source-prismic-graphql',
+      options: {
+        repositoryName: process.env.GATSBY_PRISMIC_NAME,
+        previews: false,
+        omitPrismicScript: true,
+        sharpKeys: [
+          /image|photo|picture/, // (default)
+          'logo',
+          'icon_logo',
+          'my_image',
+        ],
+        // pages: [
+        //   {
+        //     type: 'Blog',
+        //     match: '/:uid',
+        //     path: '/',
+        //     component: require.resolve('./src/templates/blog.js'),
+        //   },
+        // ],
+      },
     },
     {
       resolve: 'gatsby-plugin-google-analytics',
@@ -74,6 +92,15 @@ module.exports = {
           failOnError: false,
         },
       },
+    },
+    {
+      resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+      // options: {
+      //   devMode: true,
+      //   analyzerMode: 'server',
+      //   analyzerPort: 3001,
+      //   defaultSizes: 'gzip',
+      // },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
