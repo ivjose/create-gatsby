@@ -19,6 +19,28 @@ module.exports = {
     'gatsby-plugin-theme-ui',
     'gatsby-plugin-eslint',
     {
+      resolve: 'gatsby-plugin-webpack-bundle-analyser-v2',
+      // options: {
+      //   devMode: true,
+      //   analyzerMode: 'server',
+      //   analyzerPort: 3001,
+      //   defaultSizes: 'gzip',
+      // },
+    },
+    {
+      resolve: 'gatsby-plugin-google-analytics',
+      options: {
+        // The property ID; the tracking code won't be generated without it
+        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID || false,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-canonical-urls',
+      options: {
+        siteUrl: 'https://www.your-website.com',
+      },
+    },
+    {
       resolve: 'gatsby-plugin-manifest',
       options: {
         name: 'gatsby-starter-default',
@@ -38,6 +60,18 @@ module.exports = {
           modules: 'src/modules',
           images: 'src/images',
           utils: 'src/utils',
+        },
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-eslint',
+      options: {
+        test: /\.js$|\.jsx$/,
+        exclude: /(node_modules|.cache|public)/,
+        stages: ['develop'],
+        options: {
+          emitWarning: true,
+          failOnError: false,
         },
       },
     },
